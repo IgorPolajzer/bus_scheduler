@@ -37,14 +37,14 @@ public class BusTrips {
 
     private static Queue<StopTime> filterValidStopTimes(Queue<StopTime> stopTimes, Date date, int arrivingBussesCtr) {
         Queue<StopTime> validStopTimes = new LinkedList<>();
+        long twoHoursInMillis = 2 * 60 * 60 * 1000; // 2 hours in ms
 
         // Iterate through all the stop times and add the valid ones to the queue
         while (!stopTimes.isEmpty() && validStopTimes.size() < arrivingBussesCtr) {
             StopTime stopTime = stopTimes.remove();
             long timeDiffMillis = date.getTime() - stopTime.getArrivalTime().getTime();
-            long timeDiffHours = timeDiffMillis / (60 * 60 * 1000);
 
-            if (timeDiffHours <= 2 && timeDiffMillis > 0) {
+            if (timeDiffMillis <= twoHoursInMillis && timeDiffMillis > 0) {
                 validStopTimes.add(stopTime);
             }
         }
