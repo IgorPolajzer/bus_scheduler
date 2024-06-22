@@ -3,7 +3,6 @@ package gtfs;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Route {
     private Integer routeId;

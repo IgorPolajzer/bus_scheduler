@@ -2,13 +2,11 @@ import gtfs.Route;
 import gtfs.Stop;
 import gtfs.StopTime;
 import gtfs.Trip;
-
-import java.security.KeyPair;
-import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 public class BusTrips {
     public static void main(String[] args) {
+
         if (args.length != 3) {
             System.out.println("Not enough arguments! Use case: station_id number_of_coming_busses type_of_time(relative/absolute)");
             System.exit(0);
@@ -23,7 +21,6 @@ public class BusTrips {
             System.exit(0);
         }
 
-        // Retireve Stop object from given stop id
         Stop stop = Stop.getStopFromId(stationId, "gtfs/stops.txt");
         Queue<StopTime> stopTimes = StopTime.getStopTimesByStopId(stop.getStopId(), "gtfs/stop_times.txt");
 
@@ -41,7 +38,7 @@ public class BusTrips {
     private static Queue<StopTime> filterValidStopTimes(Queue<StopTime> stopTimes, Date date, int arrivingBussesCtr) {
         Queue<StopTime> validStopTimes = new LinkedList<>();
 
-        // Iterate through all the stop times and add the valid ones to the que
+        // Iterate through all the stop times and add the valid ones to the queue
         while (!stopTimes.isEmpty() && validStopTimes.size() < arrivingBussesCtr) {
             StopTime stopTime = stopTimes.remove();
             long timeDiffMillis = date.getTime() - stopTime.getArrivalTime().getTime();
